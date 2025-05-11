@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajesgo - Toko Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="slider">
+            <img src="promo1.jpg" alt="Promo 1">
+            <img src="promo2.jpg" alt="Promo 2">
+            <img src="promo3.jpg" alt="Promo 3">
+        </div>
+    </header>
+    <main>
+        <h1>Selamat datang di Ajesgo</h1>
+        <form id="orderForm">
+            <label>Nama:</label>
+            <input type="text" name="nama" required>
+            <label>Alamat Tujuan:</label>
+            <input type="text" id="alamat" name="alamat" required>
+            <button type="button" onclick="hitungJarak()">Hitung Ongkir</button>
+            <p id="hasil"></p>
+            <button type="submit">Pesan Sekarang</button>
+        </form>
+    </main>
+    <footer>
+        <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a> |
+        <a href="https://facebook.com" target="_blank">Meta</a> |
+        <a href="https://tiktok.com" target="_blank">TikTok</a>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
