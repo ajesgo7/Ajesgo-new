@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajesgo - Toko Online Sekitarmu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">Ajesgo</div>
+    <nav>
+      <a href="#">Beranda</a>
+      <a href="#toko">Toko</a>
+      <a href="#tentang">Tentang Kami</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <section class="slider">
+    <!-- Gambar promo otomatis -->
+    <div class="slide">Promo Menarik Minggu Ini</div>
+    <div class="slide">Gratis Ongkir 5KM Pertama</div>
+  </section>
+
+  <section id="tentang">
+    <h2>Tentang Ajesgo</h2>
+    <p>Ajesgo menjadikan toko-toko offline di sekitarmu hadir secara online. Kamu bisa pesan, dan kami antar-jemput pesananmu!</p>
+  </section>
+
+  <section id="toko">
+    <h2>Daftar Toko</h2>
+    <div class="toko-list">
+      <div class="toko">Toko Sembako Andi</div>
+      <div class="toko">Laundry Bersih Kilat</div>
+      <!-- Tambah toko lainnya -->
+    </div>
+  </section>
+
+  <section id="pesan">
+    <h2>Form Pemesanan</h2>
+    <form id="orderForm">
+      <input type="text" placeholder="Nama Anda" required />
+      <input type="text" id="alamatJemput" placeholder="Alamat Jemput" required />
+      <input type="text" id="alamatAntar" placeholder="Alamat Antar" required />
+      <input type="tel" placeholder="Nomor HP" required />
+      <select>
+        <option>Pilih Produk</option>
+        <option>Barang A</option>
+        <option>Barang B</option>
+      </select>
+      <button type="submit">Pesan Sekarang</button>
+    </form>
+    <div id="hasilTarif"></div>
+  </section>
+
+  <footer>
+    <p>Hubungi Kami:</p>
+    <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
+    <a href="https://instagram.com/ajesgo" target="_blank">Instagram</a>
+    <a href="https://tiktok.com/@ajesgo" target="_blank">TikTok</a>
+  </footer>
+
+  <script>
+    const form = document.getElementById('orderForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const origin = document.getElementById('alamatJemput').value;
+      const destination = document.getElementById('alamatAntar').value;
+
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [origin],
+        destinations: [destination],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC
+      }, (response, status) => {
+        if (status === 'OK') {
+          const distance = response.rows[0].elements[0].distance.text;
+          const distanceValue = response.rows[0].elements[0].distance.value / 1000;
+          const cost = Math.ceil(distanceValue * 3000);
+          document.getElementById('hasilTarif').innerText = `Jarak: ${distance}, Estimasi Biaya: Rp${cost}`;
+        } else {
+          document.getElementById('hasilTarif').innerText = 'Gagal menghitung jarak';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
